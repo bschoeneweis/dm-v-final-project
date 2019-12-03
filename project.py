@@ -9,11 +9,11 @@ X = dataset.iloc[:, 1:-1].values
 y = dataset.iloc[:, -1].values
 
 # Feature Scaling
-#from sklearn.preprocessing import StandardScaler
-#standardScalerX = StandardScaler()
-#X = standardScalerX.fit_transform(X)
+# from sklearn.preprocessing import StandardScaler
+# standard_scaler_X = StandardScaler()
+# X = standard_scaler_X.fit_transform(X)
 
-# 1 Simple Linear Regression
+# 1 Multiple Linear Regression
 
 # Linear Regression
 from sklearn.linear_model import LinearRegression
@@ -21,23 +21,23 @@ regressor = LinearRegression()
 regressor.fit(X, y)
 
 # Visualizing the results
-plt.scatter(X[:,1], y, color='red')
-plt.scatter(X[:,1], regressor.predict(X), color='blue')
+plt.scatter(X[:, 1], y, color='red')
+plt.scatter(X[:, 1], regressor.predict(X), color='blue')
 plt.show() 
 
 # 2 Backward Elimination
 
 # Building the optimal model using Backward Elimination
 import statsmodels.api as sm
-X = np.append(arr=np.ones((400,1)), values=X , axis=1)
+X = np.append(arr=np.ones((500,1)), values=X , axis=1)
 
 X_opt = X[:, [0, 1, 2, 5, 6, 7]]
 regressor_OLS = sm.OLS(endog=y, exog=X_opt).fit()
 regressor_OLS.summary()
 
 # Visualizing the results
-plt.scatter(X[:,1], y, color='red')
-plt.scatter(X[:,1], regressor_OLS.predict(X_opt), color='blue')
+plt.scatter(X[:, 1], y, color='red')
+plt.scatter(X[:, 1], regressor_OLS.predict(X_opt), color='blue')
 plt.show() 
 
 # 3 SVR
@@ -53,8 +53,8 @@ regressor_svr = SVR(kernel='rbf')
 regressor_svr.fit(X, y)
 
 # Visualising the results
-plt.scatter(X[:,1], y, color='red')
-plt.scatter(X[:,1], regressor_svr.predict(X), color='blue')
+plt.scatter(X[:, 1], y, color='red')
+plt.scatter(X[:, 1], regressor_svr.predict(X), color='blue')
 plt.show() 
 
 # 4 Decision Tree Regression 
@@ -65,18 +65,20 @@ regressor_dt = DecisionTreeRegressor(random_state=0)
 regressor_dt.fit(X, y)
 
 # Visualizing the results
-plt.scatter(X[:,1], y, color='red')
-plt.scatter(X[:,1], regressor_dt.predict(X), color='blue')
+plt.scatter(X[:, 1], y, color='red')
+plt.scatter(X[:, 1], regressor_dt.predict(X), color='blue')
 plt.show() 
 
 # 5 Random Forest
 
 # Fitting Random Forest Regression to the dataset
 from sklearn.ensemble import RandomForestRegressor
-regressor_rf = RandomForestRegressor(n_estimators=100, max_leaf_nodes=5, random_state=0)
+regressor_rf = RandomForestRegressor(n_estimators=100,
+                                     max_leaf_nodes=5,
+                                     random_state=0)
 regressor_rf.fit(X, y)
 
 # Visualizing the results
-plt.scatter(X[:,1], y, color='red')
-plt.scatter(X[:,1], regressor_rf.predict(X), color='blue')
+plt.scatter(X[:, 1], y, color='red')
+plt.scatter(X[:, 1], regressor_rf.predict(X), color='blue')
 plt.show() 
